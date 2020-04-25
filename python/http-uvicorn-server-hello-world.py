@@ -1,5 +1,5 @@
-# uvicorn --workers $(nproc) --loop asyncio --log-level warning http-uvicorn-server:app
-# uvicorn --workers $(nproc) --loop uvloop --log-level warning http-uvicorn-server:app
+# uvicorn --workers $(nproc) --loop asyncio --log-level warning http-uvicorn-server-hello-world:app
+# uvicorn --workers $(nproc) --loop uvloop --log-level warning http-uvicorn-server-hello-world:app
 
 async def app(scope, receive, send):
     await send({

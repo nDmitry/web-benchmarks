@@ -1,4 +1,4 @@
-# gunicorn --workers $(nproc) http-gunicorn-server:app
+# gunicorn --workers $(nproc) http-gunicorn-server-hello-world:app
 
 def app(environ, start_response):
     data = b'Hello, World!\n'
