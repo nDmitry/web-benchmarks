@@ -1,0 +1,16 @@
+{
+  "name": "nodejs-benchmarks",
+  "version": "1.0.0",
+  "description": "",
+  "main": "http-cluster-hello-world.js",
+  "scripts": {
+    "start:cluster": "node http-cluster-hello-world.js",
+    "start:pm2": "pm2 start http-cluster-hello-world.js --instances max",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Dmitry Nikitenko",
+  "license": "ISC",
+  "dependencies": {
+    "pm2": "^4.4.0"
+  }
+}
