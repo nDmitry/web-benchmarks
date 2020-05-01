@@ -55,7 +55,7 @@ Tests were executed on a virtual machine running Ubuntu 19.10 in VirtualBox:
 - RAM: Corsair CMW16GX4M2C3000C15 DDR4-3000 16gb (8gb available to the VM)
 - SSD: Samsung SSD 970 EVO Plus
 
-### Golang
+### Golang 1.14
 
 ```
 Concurrency Level:      128
@@ -88,7 +88,7 @@ Percentage of the requests served within a certain time (ms)
  100%    582 (longest request)
 ```
 
-### node.js
+### node.js 14
 
 `cluster` module:
 
@@ -156,7 +156,7 @@ Percentage of the requests served within a certain time (ms)
  100%    293 (longest request)
 ```
 
-### Python
+### Python 3.8
 
 gunicorn:
 
