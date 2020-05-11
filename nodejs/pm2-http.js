@@ -18,7 +18,8 @@ class User {
 
 const db = new Pool({
     host: 'localhost',
-    database: 'fakes',
+    port: process.env.PG_PORT,
+    database: process.env.PG_DB,
     user: process.env.PG_USER,
     password: process.env.PG_PASS,
     min: poolSize,

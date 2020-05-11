@@ -12,7 +12,7 @@ import (
 
 	"github.com/jackc/pgx/pgxpool"
 
-	"web-benchmarks/go/common"
+	"web-benchmarks/golang/common"
 )
 
 func getUsers(pool *pgxpool.Pool) ([]common.User, error) {
@@ -59,8 +59,8 @@ func main() {
 		fmt.Sprintf("user=%s", os.Getenv("PG_USER")),
 		fmt.Sprintf("password=%s", os.Getenv("PG_PASS")),
 		fmt.Sprintf("host=%s", "localhost"),
-		fmt.Sprintf("port=%d", 5432),
-		fmt.Sprintf("dbname=%s", "fakes"),
+		fmt.Sprintf("port=%s", os.Getenv("PG_PORT")),
+		fmt.Sprintf("dbname=%s", os.Getenv("PG_DB")),
 		fmt.Sprintf("pool_min_conns=%d", common.PoolSize),
 		fmt.Sprintf("pool_max_conns=%d", common.PoolSize),
 	}

@@ -30,16 +30,16 @@ Basically, each benchmark is running on all cores with a database connection poo
 ### Servers
 
 Golang:
-- `PG_USER= PG_PASS= GOMAXPROCS=$(nproc) go run http/main.go`
+- `export $(cat ../.makerc | xargs) && GOMAXPROCS=$(nproc) go run http/main.go`
 
 node.js:
-- `PG_USER= PG_PASS= node cluster-http.js`
-- `PG_USER= PG_PASS= pm2 start pm2-http.js --instances max`
+- `export $(cat ../.makerc | xargs) && node cluster-http.js`
+- `export $(cat ../.makerc | xargs) && pm2 start pm2-http.js --instances max`
 
 Python:
-- `PG_USER= PG_PASS= gunicorn --workers $(nproc) --threads $(nproc) --log-level warning gunicorn-bare:app`
-- `PG_USER= PG_PASS= uvicorn --workers $(nproc) --loop asyncio --log-level warning uvicorn-bare:app`
-- `PG_USER= PG_PASS= uvicorn --workers $(nproc) --loop uvloop --log-level warning uvicorn-bare:app`
+- `export $(cat ../.makerc | xargs) && gunicorn --workers $(nproc) --threads $(nproc) --log-level warning gunicorn-bare:app`
+- `export $(cat ../.makerc | xargs) && uvicorn --workers $(nproc) --loop asyncio --log-level warning uvicorn-bare:app`
+- `export $(cat ../.makerc | xargs) && uvicorn --workers $(nproc) --loop uvloop --log-level warning uvicorn-bare:app`
 
 ### Benchmark
 

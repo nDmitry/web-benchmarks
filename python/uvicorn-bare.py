@@ -28,7 +28,8 @@ class App:
                 min_size=pool_size,
                 max_size=pool_size,
                 host=f'localhost',
-                database='fakes',
+                port=os.getenv('PG_PORT'),
+                database=os.getenv('PG_DB'),
                 user=os.getenv('PG_USER'),
                 password=os.getenv('PG_PASS')
             )

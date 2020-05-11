@@ -10,7 +10,8 @@ db = psycopg2.pool.ThreadedConnectionPool(
     pool_size,
     pool_size,
     host=f'localhost',
-    dbname='fakes',
+    port=os.getenv('PG_PORT'),
+    dbname=os.getenv('PG_DB'),
     user=os.getenv('PG_USER'),
     password=os.getenv('PG_PASS')
 )
