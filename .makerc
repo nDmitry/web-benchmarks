@@ -5,3 +5,4 @@ PG_PASS=bench
 PG_PORT=55432
 PG_DB=bench
 USERS_SQL_PATH=./user.sql
+NODE_ENV=production
