@@ -1,4 +1,4 @@
-There are many benchmarks comparing different languages and platforms performance to each other, but not all of them are doing this right. It's easy to find benchmarks comparing Golang working on all cores with node.js started in a single process. Or utilising DB connection pools in one language/framework and not doing it in another.
+There are many benchmarks comparing different languages and platforms performance to each other, but not all of them are doing this right. It's easy to find benchmarks comparing Golang working on all cores with node.js started in a single process. Or utilizing DB connection pools in one language/framework and not doing it in another.
 
 The goal of this project is to write simple and fare(-ish) benchmarks for a smaller set of languages I understand how to use efficiently and demonstrate that the difference in performance may not be that dramatic (how it is sometimes shown on the internet). No fine tuning is done to run each language/server at a maximum possible speed, rather they all run at default settings and use easily available features of their platforms.
 
@@ -23,7 +23,7 @@ All benchmarks maintain a similar workload across languages, which includes:
 - CPU bound operations (e.g. serializing JSON, parsing HTTP headers).
 - Memory allocation and garbage collection (e.g. creating DTO-like structures for each row in the database and discarding them).
 
-Basically, each benchmark is running on all cores with a database connection pool(s) and on each request it simply fetches a 1000 fake users from the database, creates a class instance/structure for each row converting a datetime object to ISO string, serializes resulting array to JSON and responds with this payload. This gives near-100% CPU utilization for all languages used.
+Basically, each benchmark is running on all cores with a database connection pool(s) and on each request it simply fetches a 100 fake users from the database, creates a class instance/structure for each row converting a datetime object to ISO string, serializes resulting array to JSON and responds with this payload. This gives near-100% CPU utilization for all languages used.
 
 ## Running servers and benchmarks
 
@@ -65,9 +65,9 @@ Tests were executed on a virtual machine running Ubuntu 19.10 in VirtualBox:
 
 | Language/platform | Server/framework | Requests per second  | Time per request (ms) |
 | ----------------- | ---------------- | --------------------:| ---------------------:|
-| Golang 1.14       | net/http         | 1218                 | 0.821                 |
-| node.js 14        | cluster, http    | 745                  | 1.341                 |
-| node.js 14        | pm2, http        | 728                  | 1.373                 |
-| Python 3.8        | gunicorn         | 379                  | 2.632                 |
-| Python 3.8        | uvicorn/asyncio  | 874                  | 1.143                 |
-| Python 3.8        | uvicorn/uvloop   | 915                  | 1.092                 |
+| Golang 1.14       | net/http         | 7006                 | 0.143                 |
+| node.js 14        | cluster, http    | 3157                 | 0.317                 |
+| node.js 14        | pm2, http        | 3046                 | 0.328                 |
+| Python 3.8        | gunicorn         | 2179                 | 0.459                 |
+| Python 3.8        | uvicorn/asyncio  | 4023                 | 0.249                 |
+| Python 3.8        | uvicorn/uvloop   | 4871                 | 0.205                 |
