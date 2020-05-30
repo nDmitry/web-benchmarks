@@ -20,10 +20,12 @@ The goal of this project is to write simple and fare(-ish) benchmarks for a smal
 All benchmarks maintain a similar workload across languages, which includes:
 
 - Handling HTTP requests and pooled database connections.
-- CPU bound operations (e.g. serializing JSON, parsing HTTP headers).
+- CPU bound operations (e.g. serializing JSON, parsing HTTP headers, encrypting strings using Caesar cypher algorithm).
 - Memory allocation and garbage collection (e.g. creating DTO-like structures for each row in the database and discarding them).
 
-Basically, each benchmark is running on all cores with a database connection pool(s) and on each request it simply fetches a 100 fake users from the database, creates a class instance/structure for each row converting a datetime object to ISO string, serializes resulting array to JSON and responds with this payload. This gives near-100% CPU utilization for all languages used.
+Basically, each benchmark is running on all cores with a database connection pool(s) and on each request it simply fetches a 100 fake users from the database, creates a class instance/structure for each row converting a datetime object to an ISO string and encrypting one of the fields with Caesar cypher, serializes resulting array to JSON and responds with this payload.
+
+This gives us a near-100% CPU utilization for all languages used and measures both CPU and IO-bound performance. The workload between CPU and IO-bound tasks was adjusted so that neither of them become an obvious bottleneck.
 
 ## Running servers and benchmarks
 
@@ -53,6 +55,8 @@ Python:
 
 `ab -n 10000 -c 128 http://localhost:8000/`
 
+Results of a third run are used below.
+
 ## Results
 
 ### Specs
@@ -65,9 +69,9 @@ Tests were executed on a virtual machine running Ubuntu 19.10 in VirtualBox:
 
 | Language/platform | Server/framework | Requests per second  | Time per request (ms) |
 | ----------------- | ---------------- | --------------------:| ---------------------:|
-| Golang 1.14       | net/http         | 7006                 | 0.143                 |
-| node.js 14        | cluster, http    | 3157                 | 0.317                 |
-| node.js 14        | pm2, http        | 3046                 | 0.328                 |
-| Python 3.8        | gunicorn         | 2179                 | 0.459                 |
-| Python 3.8        | uvicorn/asyncio  | 4023                 | 0.249                 |
-| Python 3.8        | uvicorn/uvloop   | 4871                 | 0.205                 |
+| Golang 1.14       | net/http         | 8006                 | 0.125                 |
+| node.js 14        | cluster, http    | 3685                 | 0.271                 |
+| node.js 14        | pm2, http        | 3599                 | 0.278                 |
+| Python 3.8        | gunicorn         | 1532                 | 0.652                 |
+| Python 3.8        | uvicorn/asyncio  | 2517                 | 0.397                 |
+| Python 3.8        | uvicorn/uvloop   | 2765                 | 0.362                 |

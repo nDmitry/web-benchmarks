@@ -8,7 +8,6 @@ import (
 	"net/http"
 	"os"
 	"strings"
-	"time"
 
 	"github.com/jackc/pgx/pgxpool"
 
@@ -16,10 +15,6 @@ import (
 )
 
 func getUsers(pool *pgxpool.Pool) ([]common.User, error) {
-	var id int
-	var username, name, sex, address, mail *string
-	var birthdate time.Time
-
 	rows, err := pool.Query(context.Background(), "SELECT * FROM \"user\";")
 
 	if err != nil {
@@ -28,23 +23,19 @@ func getUsers(pool *pgxpool.Pool) ([]common.User, error) {
 
 	defer rows.Close()
 
-	users := make([]common.User, 0)
+	users := make([]common.User, 0, 100)
 
 	for rows.Next() {
-		err := rows.Scan(&id, &username, &name, &sex, &address, &mail, &birthdate)
+		user := common.User{}
 
-		if err != nil {
+		if err := rows.Scan(
+			&user.ID, &user.Username, &user.Name, &user.Sex, &user.Address, &user.Mail, &user.Birthdate,
+		); err != nil {
 			return nil, err
 		}
 
-		users = append(users, common.User{
-			Username:  *username,
-			Name:      *name,
-			Sex:       *sex,
-			Address:   *address,
-			Mail:      *mail,
-			Birthdate: birthdate.Format(time.RFC3339),
-		})
+		user.Address = common.CaesarCipher(user.Address)
+		users = append(users, user)
 	}
 
 	if err := rows.Err(); err != nil {

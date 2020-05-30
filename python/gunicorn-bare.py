@@ -4,7 +4,7 @@ import orjson
 import psycopg2.extras
 import psycopg2.pool
 
-from common import User, pool_size
+from common import User, pool_size, caesarCipher
 
 db = psycopg2.pool.ThreadedConnectionPool(
     pool_size,
@@ -24,10 +24,11 @@ def get_users():
     cur.execute(query)
 
     users = [User(
+        id=row['id'],
         username=row['username'],
         name=row['name'],
         sex=row['sex'],
-        address=row['address'],
+        address=caesarCipher(row['address']),
         mail=row['mail'],
         birthdate=row['birthdate'].isoformat(),
     ) for row in cur]

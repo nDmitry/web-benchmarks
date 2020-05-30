@@ -3,7 +3,7 @@ import os
 import asyncpg
 import orjson
 
-from common import User, pool_size
+from common import User, pool_size, caesarCipher
 
 
 class App:
@@ -14,10 +14,11 @@ class App:
             rows = await conn.fetch('SELECT * FROM "user";')
 
         return [User(
+            id=row['id'],
             username=row['username'],
             name=row['name'],
             sex=row['sex'],
-            address=row['address'],
+            address=caesarCipher(row['address']),
             mail=row['mail'],
             birthdate=row['birthdate'].isoformat(),
         ) for row in rows]
