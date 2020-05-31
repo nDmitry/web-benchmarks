@@ -9,9 +9,9 @@ import (
 	"os"
 	"strings"
 
-	"github.com/jackc/pgx/pgxpool"
+	"github.com/jackc/pgx/v4/pgxpool"
 
-	"web-benchmarks/golang/common"
+	"github.com/nDmitry/web-benchmarks/golang/common"
 )
 
 func getUsers(pool *pgxpool.Pool) ([]common.User, error) {

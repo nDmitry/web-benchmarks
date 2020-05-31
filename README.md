@@ -34,8 +34,8 @@ Run `docker-compose up` in the root dir to create and initialize the DB.
 ### Servers
 
 Golang:
-- `cd golang`
-- `export $(cat ../.env | xargs) && GOMAXPROCS=$(nproc) go run http/main.go`
+- `cd golang/http`
+- `export $(cat ../../.env | xargs) && GOMAXPROCS=$(nproc) go run main.go`
 
 node.js:
 - `cd nodejs`
