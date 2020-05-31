@@ -8,6 +8,7 @@
   "author": "Dmitry Nikitenko",
   "license": "ISC",
   "dependencies": {
+    "@hapi/hapi": "^19.1.1",
     "@koa/router": "^9.0.1",
     "express": "^4.17.1",
     "koa": "^2.12.0",

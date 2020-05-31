@@ -81,6 +81,7 @@ Tests were executed on a virtual machine running Ubuntu 19.10 in VirtualBox:
 | node.js 14.3      | pm2, http          | 3599                 | 0.278                 |
 | node.js 14.3      | cluster, express 4 | 2983                 | 0.340                 |
 | node.js 14.3      | cluster, koa 2     | 3461                 | 0.289                 |
+| node.js 14.3      | cluster, hapi 19   | 3239                 | 0.309                 |
 | Python 3.8        | gunicorn           | 1532                 | 0.652                 |
 | Python 3.8        | gunicorn/flask     | 1413                 | 0.708                 |
 | Python 3.8        | uvicorn/asyncio    | 2517                 | 0.397                 |
