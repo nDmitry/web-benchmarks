@@ -52,6 +52,7 @@ Python:
 - `export $(cat ../.env | xargs) && gunicorn --workers $(nproc) --threads $(nproc) --log-level warning gunicorn-bare:app`
 - `export $(cat ../.env | xargs) && uvicorn --workers $(nproc) --loop asyncio --log-level warning uvicorn-bare:app`
 - `export $(cat ../.env | xargs) && uvicorn --workers $(nproc) --loop uvloop --log-level warning uvicorn-bare:app`
+- `export $(cat ../.env | xargs) && gunicorn --workers $(nproc) --threads $(nproc) --log-level warning flask-app:app`
 
 ### Benchmark
 
@@ -77,5 +78,6 @@ Tests were executed on a virtual machine running Ubuntu 19.10 in VirtualBox:
 | node.js 14.3      | pm2, http        | 3599                 | 0.278                 |
 | node.js 14.3      | cluster, express | 2983                 | 0.340                 |
 | Python 3.8        | gunicorn         | 1532                 | 0.652                 |
+| Python 3.8        | gunicorn/flask   | 1413                 | 0.708                 |
 | Python 3.8        | uvicorn/asyncio  | 2517                 | 0.397                 |
 | Python 3.8        | uvicorn/uvloop   | 2765                 | 0.362                 |

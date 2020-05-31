@@ -1,11 +1,16 @@
 asyncpg==0.20.1
 click==7.1.1
+Flask==1.1.2
 gunicorn==20.0.4
 h11==0.9.0
 httptools==0.1.1
+itsdangerous==1.1.0
+Jinja2==2.11.2
+MarkupSafe==1.1.1
 orjson==2.6.6
 psycopg2==2.8.5
 uvicorn==0.11.3
 uvloop==0.14.0
 uWSGI==2.0.18
 websockets==8.1
+Werkzeug==1.0.1
