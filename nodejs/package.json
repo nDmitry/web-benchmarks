@@ -8,6 +8,7 @@
   "author": "Dmitry Nikitenko",
   "license": "ISC",
   "dependencies": {
+    "express": "^4.17.1",
     "pg": "^8.0.3",
     "pm2": "^4.4.0"
   }

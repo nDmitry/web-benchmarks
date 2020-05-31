@@ -42,6 +42,7 @@ node.js:
 - `npm i`
 - `export $(cat ../.env | xargs) && node cluster-http.js`
 - `export $(cat ../.env | xargs) && pm2 start pm2-http.js --instances max`
+- `export $(cat ../.env | xargs) && node cluster-express.js`
 
 Python:
 - `cd python`
@@ -72,8 +73,9 @@ Tests were executed on a virtual machine running Ubuntu 19.10 in VirtualBox:
 | Language/platform | Server/framework | Requests per second  | Time per request (ms) |
 | ----------------- | ---------------- | --------------------:| ---------------------:|
 | Golang 1.14       | net/http         | 8006                 | 0.125                 |
-| node.js 14        | cluster, http    | 3685                 | 0.271                 |
-| node.js 14        | pm2, http        | 3599                 | 0.278                 |
+| node.js 14.3      | cluster, http    | 3685                 | 0.271                 |
+| node.js 14.3      | pm2, http        | 3599                 | 0.278                 |
+| node.js 14.3      | cluster, express | 2983                 | 0.340                 |
 | Python 3.8        | gunicorn         | 1532                 | 0.652                 |
 | Python 3.8        | uvicorn/asyncio  | 2517                 | 0.397                 |
 | Python 3.8        | uvicorn/uvloop   | 2765                 | 0.362                 |
