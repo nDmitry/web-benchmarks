@@ -8,7 +8,9 @@
   "author": "Dmitry Nikitenko",
   "license": "ISC",
   "dependencies": {
+    "@koa/router": "^9.0.1",
     "express": "^4.17.1",
+    "koa": "^2.12.0",
     "pg": "^8.0.3",
     "pm2": "^4.4.0"
   }

@@ -79,7 +79,8 @@ Tests were executed on a virtual machine running Ubuntu 19.10 in VirtualBox:
 | Golang 1.14       | fasthttp, easyjson | 16742                | 0.060                 |
 | node.js 14.3      | cluster, http      | 3685                 | 0.271                 |
 | node.js 14.3      | pm2, http          | 3599                 | 0.278                 |
-| node.js 14.3      | cluster, express   | 2983                 | 0.340                 |
+| node.js 14.3      | cluster, express 4 | 2983                 | 0.340                 |
+| node.js 14.3      | cluster, koa 2     | 3461                 | 0.289                 |
 | Python 3.8        | gunicorn           | 1532                 | 0.652                 |
 | Python 3.8        | gunicorn/flask     | 1413                 | 0.708                 |
 | Python 3.8        | uvicorn/asyncio    | 2517                 | 0.397                 |
