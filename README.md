@@ -35,6 +35,7 @@ Run `docker-compose up` in the root dir to create and initialize the DB.
 
 Golang:
 - `cd golang/http`
+- `cd golang/httpeasyjson`
 - `export $(cat ../../.env | xargs) && GOMAXPROCS=$(nproc) go run main.go`
 
 node.js:
@@ -71,13 +72,14 @@ Tests were executed on a virtual machine running Ubuntu 19.10 in VirtualBox:
 - RAM: Corsair CMW16GX4M2C3000C15 DDR4-3000 16gb (8gb available to the VM)
 - SSD: Samsung SSD 970 EVO Plus
 
-| Language/platform | Server/framework | Requests per second  | Time per request (ms) |
-| ----------------- | ---------------- | --------------------:| ---------------------:|
-| Golang 1.14       | net/http         | 8006                 | 0.125                 |
-| node.js 14.3      | cluster, http    | 3685                 | 0.271                 |
-| node.js 14.3      | pm2, http        | 3599                 | 0.278                 |
-| node.js 14.3      | cluster, express | 2983                 | 0.340                 |
-| Python 3.8        | gunicorn         | 1532                 | 0.652                 |
-| Python 3.8        | gunicorn/flask   | 1413                 | 0.708                 |
-| Python 3.8        | uvicorn/asyncio  | 2517                 | 0.397                 |
-| Python 3.8        | uvicorn/uvloop   | 2765                 | 0.362                 |
+| Language/platform | Server/framework   | Requests per second  | Time per request (ms) |
+| ----------------- | ------------------ | --------------------:| ---------------------:|
+| Golang 1.14       | net/http           | 7619                 | 0.131                 |
+| Golang 1.14       | net/http, easyjson | 15956                | 0.063                 |
+| node.js 14.3      | cluster, http      | 3685                 | 0.271                 |
+| node.js 14.3      | pm2, http          | 3599                 | 0.278                 |
+| node.js 14.3      | cluster, express   | 2983                 | 0.340                 |
+| Python 3.8        | gunicorn           | 1532                 | 0.652                 |
+| Python 3.8        | gunicorn/flask     | 1413                 | 0.708                 |
+| Python 3.8        | uvicorn/asyncio    | 2517                 | 0.397                 |
+| Python 3.8        | uvicorn/uvloop     | 2765                 | 0.362                 |

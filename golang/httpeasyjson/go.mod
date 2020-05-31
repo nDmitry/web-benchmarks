@@ -1,4 +1,4 @@
-module github.com/nDmitry/web-benchmarks/golang/http
+module github.com/nDmitry/web-benchmarks/golang/httpeasyjson
 
 go 1.14
 
