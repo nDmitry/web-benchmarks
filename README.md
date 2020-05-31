@@ -74,8 +74,9 @@ Tests were executed on a virtual machine running Ubuntu 19.10 in VirtualBox:
 
 | Language/platform | Server/framework   | Requests per second  | Time per request (ms) |
 | ----------------- | ------------------ | --------------------:| ---------------------:|
-| Golang 1.14       | net/http           | 7619                 | 0.131                 |
+| Golang 1.14       | net/http, json     | 7619                 | 0.131                 |
 | Golang 1.14       | net/http, easyjson | 15956                | 0.063                 |
+| Golang 1.14       | fasthttp, easyjson | 16742                | 0.060                 |
 | node.js 14.3      | cluster, http      | 3685                 | 0.271                 |
 | node.js 14.3      | pm2, http          | 3599                 | 0.278                 |
 | node.js 14.3      | cluster, express   | 2983                 | 0.340                 |
