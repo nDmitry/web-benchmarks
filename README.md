@@ -44,6 +44,8 @@ node.js:
 - `export $(cat ../.env | xargs) && node cluster-http.js`
 - `export $(cat ../.env | xargs) && pm2 start pm2-http.js --instances max`
 - `export $(cat ../.env | xargs) && node cluster-express.js`
+- `export $(cat ../.env | xargs) && node cluster-hapi.js`
+- `export $(cat ../.env | xargs) && node cluster-koa.js`
 
 Python:
 - `cd python`
@@ -79,7 +81,7 @@ Tests were executed on a virtual machine running Ubuntu 19.10 in VirtualBox:
 | Golang 1.14       | fasthttp, easyjson | 16742                | 0.060                 |
 | node.js 14.3      | cluster, http      | 3685                 | 0.271                 |
 | node.js 14.3      | pm2, http          | 3599                 | 0.278                 |
-| node.js 14.3      | cluster, express 4 | 2983                 | 0.340                 |
+| node.js 14.3      | cluster, express 4 | 3243                 | 0.308                 |
 | node.js 14.3      | cluster, koa 2     | 3461                 | 0.289                 |
 | node.js 14.3      | cluster, hapi 19   | 3239                 | 0.309                 |
 | Python 3.8        | gunicorn           | 1532                 | 0.652                 |
