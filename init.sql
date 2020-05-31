@@ -1,4 +1,4 @@
-CREATE TABLE "user" (
+CREATE TABLE public."user" (
     id SERIAL PRIMARY KEY,
     username VARCHAR NOT NULL,
     name VARCHAR NOT NULL,

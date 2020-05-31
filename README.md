@@ -29,30 +29,32 @@ This gives us a near-100% CPU utilization for all languages used and measures bo
 
 ## Running servers and benchmarks
 
-Run `make` once in the root dir to prepare the DB and `make db-clear` to remove created Docker container and associated volume.
+Run `docker-compose up` in the root dir to create and initialize the DB.
 
 ### Servers
 
 Golang:
 - `cd golang`
-- `export $(cat ../.makerc | xargs) && GOMAXPROCS=$(nproc) go run http/main.go`
+- `export $(cat ../.env | xargs) && GOMAXPROCS=$(nproc) go run http/main.go`
 
 node.js:
 - `cd nodejs`
-- `export $(cat ../.makerc | xargs) && node cluster-http.js`
-- `export $(cat ../.makerc | xargs) && pm2 start pm2-http.js --instances max`
+- `npm i`
+- `export $(cat ../.env | xargs) && node cluster-http.js`
+- `export $(cat ../.env | xargs) && pm2 start pm2-http.js --instances max`
 
 Python:
 - `cd python`
 - `python -m venv env`
 - `source env/bin/activate`
 - `pip install -r requirements.txt`
-- `export $(cat ../.makerc | xargs) && gunicorn --workers $(nproc) --threads $(nproc) --log-level warning gunicorn-bare:app`
-- `export $(cat ../.makerc | xargs) && uvicorn --workers $(nproc) --loop asyncio --log-level warning uvicorn-bare:app`
-- `export $(cat ../.makerc | xargs) && uvicorn --workers $(nproc) --loop uvloop --log-level warning uvicorn-bare:app`
+- `export $(cat ../.env | xargs) && gunicorn --workers $(nproc) --threads $(nproc) --log-level warning gunicorn-bare:app`
+- `export $(cat ../.env | xargs) && uvicorn --workers $(nproc) --loop asyncio --log-level warning uvicorn-bare:app`
+- `export $(cat ../.env | xargs) && uvicorn --workers $(nproc) --loop uvloop --log-level warning uvicorn-bare:app`
 
 ### Benchmark
 
+`sudo apt install apache2-utils`
 `ab -n 10000 -c 128 http://localhost:8000/`
 
 Results of a third run are used below.

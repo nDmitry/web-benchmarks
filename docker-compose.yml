@@ -1,0 +1,11 @@
+version: "3"
+services:
+    postgres:
+        image: "postgres:${PG_VERSION}"
+        restart: always
+        volumes:
+            - ./init.sql:/docker-entrypoint-initdb.d/1-init.sql
+        ports:
+            - "${PG_PORT}:5432"
+        environment:
+            POSTGRES_PASSWORD: "${PG_PASS}"
