@@ -18,6 +18,9 @@ type User struct {
 	Birthdate time.Time `json:"birthdate"`
 }
 
+//easyjson:json
+type Users []User
+
 func CaesarCipher(in string) string {
 	key := 14
 	var buf bytes.Buffer

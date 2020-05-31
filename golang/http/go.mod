@@ -1,4 +1,4 @@
-module github.com/nDmitry/web-benchmarks/http
+module github.com/nDmitry/web-benchmarks/golang/http
 
 go 1.14
 
