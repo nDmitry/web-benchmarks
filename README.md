@@ -53,9 +53,10 @@ Python:
 - `source env/bin/activate`
 - `pip install -r requirements.txt`
 - `export $(cat ../.env | xargs) && gunicorn --workers $(nproc) --threads $(nproc) --log-level warning gunicorn-bare:app`
+- `export $(cat ../.env | xargs) && gunicorn --workers $(nproc) --threads $(nproc) --log-level warning flask-app:app`
+- `export $(cat ../.env | xargs) && gunicorn --workers $(nproc) --threads $(nproc) --log-level warning --worker-class aiohttp.GunicornWebWorker aiohttp-app:app`
 - `export $(cat ../.env | xargs) && uvicorn --workers $(nproc) --loop asyncio --log-level warning uvicorn-bare:app`
 - `export $(cat ../.env | xargs) && uvicorn --workers $(nproc) --loop uvloop --log-level warning uvicorn-bare:app`
-- `export $(cat ../.env | xargs) && gunicorn --workers $(nproc) --threads $(nproc) --log-level warning flask-app:app`
 
 ### Benchmark
 
@@ -85,6 +86,7 @@ Tests were executed on a virtual machine running Ubuntu 19.10 in VirtualBox:
 | node.js 14.3      | cluster, koa 2     | 3461                 | 0.289                 |
 | node.js 14.3      | cluster, hapi 19   | 3239                 | 0.309                 |
 | Python 3.8        | gunicorn           | 1532                 | 0.652                 |
-| Python 3.8        | gunicorn/flask     | 1413                 | 0.708                 |
-| Python 3.8        | uvicorn/asyncio    | 2517                 | 0.397                 |
-| Python 3.8        | uvicorn/uvloop     | 2765                 | 0.362                 |
+| Python 3.8        | gunicorn, flask    | 1413                 | 0.708                 |
+| Python 3.8        | gunicorn, aiohttp  | 2374                 | 0.421                 |
+| Python 3.8        | uvicorn, asyncio   | 2517                 | 0.397                 |
+| Python 3.8        | uvicorn, uvloop    | 2765                 | 0.362                 |
