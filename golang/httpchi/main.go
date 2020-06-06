@@ -15,37 +15,6 @@ import (
 	"github.com/nDmitry/web-benchmarks/golang/common"
 )
 
-func getUsers(pool *pgxpool.Pool) ([]common.User, error) {
-	rows, err := pool.Query(context.Background(), "SELECT * FROM \"user\";")
-
-	if err != nil {
-		return nil, err
-	}
-
-	defer rows.Close()
-
-	users := make([]common.User, 0, 100)
-
-	for rows.Next() {
-		user := common.User{}
-
-		if err := rows.Scan(
-			&user.ID, &user.Username, &user.Name, &user.Sex, &user.Address, &user.Mail, &user.Birthdate,
-		); err != nil {
-			return nil, err
-		}
-
-		user.Address = common.CaesarCipher(user.Address)
-		users = append(users, user)
-	}
-
-	if err := rows.Err(); err != nil {
-		return nil, err
-	}
-
-	return users, nil
-}
-
 func main() {
 	dsn := []string{
 		fmt.Sprintf("user=%s", os.Getenv("PG_USER")),
@@ -66,7 +35,7 @@ func main() {
 	r := chi.NewRouter()
 
 	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
-		users, err := getUsers(pool)
+		users, err := common.GetUsers(pool)
 
 		if err != nil {
 			log.Fatal(err)
