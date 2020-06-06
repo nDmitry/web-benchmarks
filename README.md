@@ -34,8 +34,7 @@ Run `docker-compose up` in the root dir to create and initialize the DB.
 ### Servers
 
 Golang:
-- `cd golang/http`
-- `cd golang/httpeasyjson`
+- `cd golang/...`
 - `export $(cat ../../.env | xargs) && GOMAXPROCS=$(nproc) go run main.go`
 
 node.js:
@@ -75,18 +74,19 @@ Tests were executed on a virtual machine running Ubuntu 19.10 in VirtualBox:
 - RAM: Corsair CMW16GX4M2C3000C15 DDR4-3000 16gb (8gb available to the VM)
 - SSD: Samsung SSD 970 EVO Plus
 
-| Language/platform | Server/framework   | Requests per second  | Time per request (ms) |
-| ----------------- | ------------------ | --------------------:| ---------------------:|
-| Golang 1.14       | net/http, json     | 7619                 | 0.131                 |
-| Golang 1.14       | net/http, easyjson | 15956                | 0.063                 |
-| Golang 1.14       | fasthttp, easyjson | 16742                | 0.060                 |
-| node.js 14.3      | cluster, http      | 3685                 | 0.271                 |
-| node.js 14.3      | pm2, http          | 3599                 | 0.278                 |
-| node.js 14.3      | cluster, express 4 | 3243                 | 0.308                 |
-| node.js 14.3      | cluster, koa 2     | 3461                 | 0.289                 |
-| node.js 14.3      | cluster, hapi 19   | 3239                 | 0.309                 |
-| Python 3.8        | gunicorn           | 1532                 | 0.652                 |
-| Python 3.8        | gunicorn, flask    | 1413                 | 0.708                 |
-| Python 3.8        | gunicorn, aiohttp  | 2374                 | 0.421                 |
-| Python 3.8        | uvicorn, asyncio   | 2517                 | 0.397                 |
-| Python 3.8        | uvicorn, uvloop    | 2765                 | 0.362                 |
+| Language/platform | Server/framework    | Requests per second  | Time per request (ms) |
+| ----------------- | ------------------- | --------------------:| ---------------------:|
+| Golang 1.14       | net/http, json      | 7619                 | 0.131                 |
+| Golang 1.14       | net/http, json, chi | 7980                 | 0.125                 |
+| Golang 1.14       | net/http, easyjson  | 15956                | 0.063                 |
+| Golang 1.14       | fasthttp, easyjson  | 16742                | 0.060                 |
+| node.js 14.3      | cluster, http       | 3685                 | 0.271                 |
+| node.js 14.3      | pm2, http           | 3599                 | 0.278                 |
+| node.js 14.3      | cluster, express 4  | 3243                 | 0.308                 |
+| node.js 14.3      | cluster, koa 2      | 3461                 | 0.289                 |
+| node.js 14.3      | cluster, hapi 19    | 3239                 | 0.309                 |
+| Python 3.8        | gunicorn            | 1532                 | 0.652                 |
+| Python 3.8        | gunicorn, flask     | 1413                 | 0.708                 |
+| Python 3.8        | gunicorn, aiohttp   | 2374                 | 0.421                 |
+| Python 3.8        | uvicorn, asyncio    | 2517                 | 0.397                 |
+| Python 3.8        | uvicorn, uvloop     | 2765                 | 0.362                 |
