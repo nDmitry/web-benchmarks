@@ -45,6 +45,7 @@ node.js:
 - `export $(cat ../.env | xargs) && node cluster-express.js`
 - `export $(cat ../.env | xargs) && node cluster-koa.js`
 - `export $(cat ../.env | xargs) && node cluster-hapi.js`
+- `export $(cat ../.env | xargs) && node cluster-fastify.js`
 
 Python:
 - `cd python`
