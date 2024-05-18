@@ -33,61 +33,62 @@ Run `docker-compose up` in the root dir to create and initialize the DB.
 
 ### Servers
 
+In MacOS use `sysctl -n hw.physicalcpu` instead of `nproc`.
+
 Golang:
+
 - `cd golang/...`
-- `export $(cat ../../.env | xargs) && GOMAXPROCS=$(nproc) go run main.go`
+- `eval export $(cat ../../.env) && GOMAXPROCS=$(sysctl -n hw.physicalcpu) go run main.go`
 
 node.js:
+
 - `cd nodejs`
 - `npm i`
-- `export $(cat ../.env | xargs) && node cluster-http.js`
-- `export $(cat ../.env | xargs) && pm2 start pm2-http.js --instances max`
-- `export $(cat ../.env | xargs) && node cluster-express.js`
-- `export $(cat ../.env | xargs) && node cluster-koa.js`
-- `export $(cat ../.env | xargs) && node cluster-hapi.js`
-- `export $(cat ../.env | xargs) && node cluster-fastify.js`
+- `eval export $(cat ../.env) && node cluster-http.js`
+- `eval export $(cat ../.env) && pm2 start pm2-http.js --instances max`
+- `eval export $(cat ../.env) && node cluster-express.js`
+- `eval export $(cat ../.env) && node cluster-koa.js`
+- `eval export $(cat ../.env) && node cluster-hapi.js`
+- `eval export $(cat ../.env) && node cluster-fastify.js`
 
 Python:
+
 - `cd python`
 - `python3 -m venv env`
 - `source env/bin/activate`
 - `pip install -r requirements.txt`
-- `export $(cat ../.env | xargs) && gunicorn --workers $(nproc) --threads $(nproc) --log-level warning gunicorn-bare:app`
-- `export $(cat ../.env | xargs) && gunicorn --workers $(nproc) --threads $(nproc) --log-level warning flask-app:app`
-- `export $(cat ../.env | xargs) && uvicorn --workers $(nproc) --loop asyncio --log-level warning uvicorn-bare:app`
-- `export $(cat ../.env | xargs) && uvicorn --workers $(nproc) --loop uvloop --log-level warning uvicorn-bare:app`
-- `export $(cat ../.env | xargs) && gunicorn --workers $(nproc) --threads $(nproc) --log-level warning --worker-class aiohttp.GunicornWebWorker aiohttp-app:app`
+- `eval export $(cat ../.env) && gunicorn --workers $(nproc) --threads $(nproc) --log-level warning gunicorn-bare:app`
+- `eval export $(cat ../.env) && gunicorn --workers $(nproc) --threads $(nproc) --log-level warning flask-app:app`
+- `eval export $(cat ../.env) && uvicorn --workers $(nproc) --loop asyncio --log-level warning uvicorn-bare:app`
+- `eval export $(cat ../.env) && uvicorn --workers $(nproc) --loop uvloop --log-level warning uvicorn-bare:app`
+- `eval export $(cat ../.env) && gunicorn --workers $(nproc) --threads $(nproc) --log-level warning --worker-class aiohttp.GunicornWebWorker aiohttp-app:app`
 
 ### Benchmark
 
 `sudo apt install apache2-utils`
-`ab -n 10000 -c 128 http://localhost:8000/`
+`ab -n 10000 -c 128 http://127.0.0.1:8000/`
 
-Results of a fifth run are used below.
+Results of a third run are used below.
 
 ## Results
 
 ### Specs
 
-Tests were executed on a virtual machine running Ubuntu 20.04 in VirtualBox, ab v2.3:
+Tests were executed on a MacBook Air M1 2020 with 16 Gb of RAM.
 
-- CPU: AMD Ryzen 5 2600 (6 out of 12 cores available to the VM)
-- RAM: Corsair CMW16GX4M2C3000C15 DDR4-3000 16gb (8gb available to the VM)
-- SSD: Samsung SSD 970 EVO Plus
-
-| Language/platform | Server/framework    | Requests per second  | Time per request (ms) |
-| ----------------- | ------------------- | --------------------:| ---------------------:|
-| Golang 1.14       | net/http, json      | 6955                 | 0.144                 |
-| Golang 1.14       | net/http, json, chi | 6911                 | 0.145                 |
-| Golang 1.14       | net/http, easyjson  | 8841                 | 0.113                 |
-| Golang 1.14       | fasthttp, easyjson  | 9015                 | 0.111                 |
-| node.js 14.4      | cluster, http       | 3961                 | 0.252                 |
-| node.js 14.4      | pm2, http           | 3856                 | 0.259                 |
-| node.js 14.4      | cluster, express 4  | 3734                 | 0.268                 |
-| node.js 14.4      | cluster, koa 2      | 3611                 | 0.289                 |
-| node.js 14.4      | cluster, hapi 19    | 2673                 | 0.374                 |
-| Python 3.8        | gunicorn            | 1615                 | 0.619                 |
-| Python 3.8        | gunicorn, flask     | 1509                 | 0.662                 |
-| Python 3.8        | uvicorn, asyncio    | 2685                 | 0.372                 |
-| Python 3.8        | uvicorn, uvloop     | 2917                 | 0.343                 |
-| Python 3.8        | gunicorn, aiohttp   | 2601                 | 0.384                 |
+| Language/platform | Server/framework    | Requests per second | Time per request (ms) |
+| ----------------- | ------------------- | ------------------: | --------------------: |
+| Golang 1.14       | net/http, json      |                7624 |                 0.131 |
+| Golang 1.14       | net/http, json, chi |                6911 |                 0.145 |
+| Golang 1.14       | net/http, easyjson  |                8841 |                 0.113 |
+| Golang 1.14       | fasthttp, easyjson  |                9015 |                 0.111 |
+| node.js 14.4      | cluster, http       |                3961 |                 0.252 |
+| node.js 14.4      | pm2, http           |                3856 |                 0.259 |
+| node.js 14.4      | cluster, express 4  |                3734 |                 0.268 |
+| node.js 14.4      | cluster, koa 2      |                3611 |                 0.289 |
+| node.js 14.4      | cluster, hapi 19    |                2673 |                 0.374 |
+| Python 3.8        | gunicorn            |                1615 |                 0.619 |
+| Python 3.8        | gunicorn, flask     |                1509 |                 0.662 |
+| Python 3.8        | uvicorn, asyncio    |                2685 |                 0.372 |
+| Python 3.8        | uvicorn, uvloop     |                2917 |                 0.343 |
+| Python 3.8        | gunicorn, aiohttp   |                2601 |                 0.384 |
