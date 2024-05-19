@@ -9,7 +9,7 @@ The goal of this project is to write simple and fare(-ish) benchmarks for a smal
 - For the Python synchronous server variant I picked `gunicorn` (workers and threads are set to a number of cores available on the system).
 - For the asynchronous Python server `uvicorn` is used with workers utilizing all CPU cores as well. I also test with two different event loop implementations: default `asyncio` loop and `uvloop`.
 - Golang is scaling itself on all cores by default since Go 1.5, explicit `GOMAXPROCS` setting is used for clarity.
-- PostgreSQL 12.2 is used as a database containing the same generated data set for all benchmarks. Servers connect to the database using connection pools (maxed at 100 connections) provided by DB libraries.
+- PostgreSQL 16.3 is used as a database containing the same generated data set for all benchmarks. Servers connect to the database using connection pools (maxed at 100 connections) provided by DB libraries.
 - Absolute results obtained don't matter and will vary a lot depending on your workload, this bench is about relative performance for the similar workload.
 - For running the benchmarks I chose Apache HTTP server benchmarking tool (`ab`) because of its handling of TCP connections being more [realistic](http://gwan.com/en_apachebench_httperf.html) comparing to `wrk`.
 - By default `net.core.somaxconn` in Linux is set to 128, so all the tests are running at a concurrency level of 128 (`ab -c` option).
