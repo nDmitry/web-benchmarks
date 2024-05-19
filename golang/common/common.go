@@ -24,8 +24,8 @@ type User struct {
 //easyjson:json
 type Users []User
 
-func GetUsers(pool *pgxpool.Pool) (Users, error) {
-	rows, err := pool.Query(context.Background(), "SELECT * FROM \"user\";")
+func GetUsers(ctx context.Context, pool *pgxpool.Pool) (Users, error) {
+	rows, err := pool.Query(ctx, "SELECT * FROM \"user\";")
 
 	if err != nil {
 		return nil, err
