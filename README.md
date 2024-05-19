@@ -12,7 +12,6 @@ The goal of this project is to write simple and fare(-ish) benchmarks for a smal
 - PostgreSQL 16.3 is used as a database containing the same generated data set for all benchmarks. Servers connect to the database using connection pools (maxed at 100 connections) provided by DB libraries.
 - Absolute results obtained don't matter and will vary a lot depending on your workload, this bench is about relative performance for the similar workload.
 - For running the benchmarks I chose Apache HTTP server benchmarking tool (`ab`) because of its handling of TCP connections being more [realistic](http://gwan.com/en_apachebench_httperf.html) comparing to `wrk`.
-- By default `net.core.somaxconn` in Linux is set to 128, so all the tests are running at a concurrency level of 128 (`ab -c` option).
 - HTTP requests logging is always disabled.
 
 ## Workload
@@ -38,7 +37,7 @@ In MacOS use `sysctl -n hw.physicalcpu` instead of `nproc`.
 Golang:
 
 - `cd golang/...`
-- `eval export $(cat ../../.env) && GOMAXPROCS=$(sysctl -n hw.physicalcpu) go run main.go`
+- `eval export $(cat ../../.env) && GOMAXPROCS=$(nproc) go run main.go`
 
 node.js:
 
@@ -65,30 +64,28 @@ Python:
 
 ### Benchmark
 
-`sudo apt install apache2-utils`
-`ab -n 10000 -c 128 http://127.0.0.1:8000/`
+On MacOS ApacheBench is installed by default. On Linux it can be installed via a package manager, e.g.: `sudo apt install apache2-utils`
 
-Results of a third run are used below.
+The bench was run using this command: `ab -n 1000 -c 128 http://127.0.0.1:8000/`
+Results of a fifth run are used below.
 
 ## Results
-
-### Specs
 
 Tests were executed on a MacBook Air M1 2020 with 16 Gb of RAM.
 
 | Language/platform | Server/framework    | Requests per second | Time per request (ms) |
 | ----------------- | ------------------- | ------------------: | --------------------: |
-| Golang 1.14       | net/http, json      |                7624 |                 0.131 |
-| Golang 1.14       | net/http, json, chi |                6911 |                 0.145 |
-| Golang 1.14       | net/http, easyjson  |                8841 |                 0.113 |
-| Golang 1.14       | fasthttp, easyjson  |                9015 |                 0.111 |
-| node.js 14.4      | cluster, http       |                3961 |                 0.252 |
-| node.js 14.4      | pm2, http           |                3856 |                 0.259 |
-| node.js 14.4      | cluster, express 4  |                3734 |                 0.268 |
-| node.js 14.4      | cluster, koa 2      |                3611 |                 0.289 |
-| node.js 14.4      | cluster, hapi 19    |                2673 |                 0.374 |
-| Python 3.8        | gunicorn            |                1615 |                 0.619 |
-| Python 3.8        | gunicorn, flask     |                1509 |                 0.662 |
-| Python 3.8        | uvicorn, asyncio    |                2685 |                 0.372 |
-| Python 3.8        | uvicorn, uvloop     |                2917 |                 0.343 |
-| Python 3.8        | gunicorn, aiohttp   |                2601 |                 0.384 |
+| Golang 1.22.3     | net/http, json      |                6671 |                 0.150 |
+| Golang 1.22.3     | net/http, json, chi |                6177 |                 0.162 |
+| Golang 1.22.3     | net/http, easyjson  |                7384 |                 0.135 |
+| Golang 1.22.3     | fasthttp, easyjson  |                8054 |                 0.124 |
+| node.js 22.2      | cluster, http       |                3950 |                 0.252 |
+| node.js 22.2      | pm2, http           |                3949 |                 0.253 |
+| node.js 22.2      | cluster, express 4  |                3467 |                 0.288 |
+| node.js 22.2      | cluster, koa 2      |                3717 |                 0.269 |
+| node.js 22.2      | cluster, hapi 19    |                3349 |                 0.299 |
+| Python 3.12.3     | gunicorn            |                1994 |                 0.501 |
+| Python 3.12.3     | gunicorn, flask     |                1931 |                 0.518 |
+| Python 3.12.3     | uvicorn, asyncio    |                3395 |                 0.295 |
+| Python 3.12.3     | uvicorn, uvloop     |                3600 |                 0.278 |
+| Python 3.12.3     | gunicorn, aiohttp   |                3276 |                 0.305 |
