@@ -86,6 +86,6 @@ Tests were executed on a MacBook Air M1 2020 with 16 Gb of RAM.
 | node.js 22.2      | cluster, hapi 19    |                3349 |                 0.299 |
 | Python 3.12.3     | gunicorn            |                1994 |                 0.501 |
 | Python 3.12.3     | gunicorn, flask     |                1931 |                 0.518 |
-| Python 3.12.3     | uvicorn, asyncio    |                3395 |                 0.295 |
-| Python 3.12.3     | uvicorn, uvloop     |                3600 |                 0.278 |
+| Python 3.12.3     | uvicorn, asyncio    |                3486 |                 0.287 |
+| Python 3.12.3     | uvicorn, uvloop     |                3664 |                 0.273 |
 | Python 3.12.3     | gunicorn, aiohttp   |                3276 |                 0.305 |

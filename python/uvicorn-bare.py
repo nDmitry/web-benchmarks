@@ -1,5 +1,6 @@
 import os
 
+import asyncio
 import asyncpg
 import orjson
 
@@ -8,6 +9,19 @@ from common import User, pool_size, caesarCipher
 
 class App:
     db = None
+
+
+    def __init__(self) -> None:
+        self.db = asyncpg.create_pool(
+            min_size=pool_size,
+            max_size=pool_size,
+            host=f'localhost',
+            port=os.getenv('PG_PORT'),
+            database=os.getenv('PG_DB'),
+            user=os.getenv('PG_USER'),
+            password=os.getenv('PG_PASS')
+        )
+
 
     async def get_users(self):
         async with self.db.acquire() as conn:
@@ -23,17 +37,9 @@ class App:
             birthdate=row['birthdate'].isoformat(),
         ) for row in rows]
 
+
     async def __call__(self, scope, receive, send):
-        if self.db is None:
-            self.db = await asyncpg.create_pool(
-                min_size=pool_size,
-                max_size=pool_size,
-                host=f'localhost',
-                port=os.getenv('PG_PORT'),
-                database=os.getenv('PG_DB'),
-                user=os.getenv('PG_USER'),
-                password=os.getenv('PG_PASS')
-            )
+        await asyncio.wait_for(self.db, timeout=10)
 
         assert scope['type'] == 'http'
 
