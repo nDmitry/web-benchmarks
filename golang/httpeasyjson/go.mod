@@ -4,7 +4,7 @@ go 1.22
 
 require (
 	github.com/jackc/pgx/v4 v4.18.3
-	github.com/nDmitry/web-benchmarks/golang/common v0.0.0-20240518112155-7bc36764df0a
+	github.com/nDmitry/web-benchmarks/golang/common v1.0.1
 )
 
 require (
