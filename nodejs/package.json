@@ -1,5 +1,5 @@
 {
-  "name": "nodejs-benchmarks",
+  "name": "web-benchmarks",
   "version": "1.0.0",
   "description": "",
   "scripts": {
@@ -8,12 +8,12 @@
   "author": "Dmitry Nikitenko",
   "license": "ISC",
   "dependencies": {
-    "@hapi/hapi": "^19.1.1",
-    "@koa/router": "^9.0.1",
-    "express": "^4.17.1",
-    "fastify": "^3.25.3",
-    "koa": "^2.12.0",
-    "pg": "^8.0.3",
-    "pm2": "^4.4.0"
+    "@hapi/hapi": "^21.3.9",
+    "@koa/router": "^12.0.1",
+    "express": "^4.19.2",
+    "fastify": "^4.27.0",
+    "koa": "^2.15.3",
+    "pg": "^8.11.5",
+    "pm2": "^5.3.1"
   }
 }
