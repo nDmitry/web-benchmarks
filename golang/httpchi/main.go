@@ -35,14 +35,19 @@ func main() {
 	r := chi.NewRouter()
 
 	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
-		users, err := common.GetUsers(pool)
+		users, err := common.GetUsers(r.Context(), pool)
 
 		if err != nil {
 			log.Fatal(err)
 		}
 
 		w.Header().Set("Content-Type", "application/json")
-		json.NewEncoder(w).Encode(users)
+
+		err = json.NewEncoder(w).Encode(users)
+
+		if err != nil {
+			log.Fatal(err)
+		}
 	})
 
 	log.Fatal(http.ListenAndServe(":8000", r))

@@ -31,7 +31,12 @@ func main() {
 	}
 
 	log.Fatal(fasthttp.ListenAndServe(":8000", func(ctx *fasthttp.RequestCtx) {
-		users, err := common.GetUsers(pool)
+		users, err := common.GetUsers(ctx, pool)
+
+		if err != nil {
+			log.Fatal(err)
+		}
+
 		resp, err := users.MarshalJSON()
 
 		if err != nil {

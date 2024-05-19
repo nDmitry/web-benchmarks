@@ -31,7 +31,12 @@ func main() {
 	}
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		users, err := common.GetUsers(pool)
+		users, err := common.GetUsers(r.Context(), pool)
+
+		if err != nil {
+			log.Fatal(err)
+		}
+
 		resp, err := users.MarshalJSON()
 
 		if err != nil {
@@ -39,7 +44,10 @@ func main() {
 		}
 
 		w.Header().Set("Content-Type", "application/json")
-		w.Write(resp)
+
+		if _, err := w.Write(resp); err != nil {
+			log.Fatal(err)
+		}
 	})
 
 	log.Fatal(http.ListenAndServe(":8000", nil))
